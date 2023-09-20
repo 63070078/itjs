@@ -9,7 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 
 router.get('/getData', isLoggedIn, async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM applicants WHERE user_id=?', [req.user.user_id]);
+    const [rows] = await pool.query('SELECT * FROM students WHERE user_id=?', [req.user.user_id]);
     //console.log("applicant GetData", req.user.user_id)
     res.status(200).json(rows);
   } catch (error) {
@@ -95,7 +95,7 @@ router.post("/editProfile", isLoggedIn, async (req, res) => {
     }
     // อัพเดตข้อมูลส่วนตัวในฐานข้อมูล
     await pool.query(
-      `UPDATE applicants SET firstName=?, lastName=?, birthdate=?, phone_number=?, gender=?, email=?, address=? WHERE user_id=?`,
+      `UPDATE students SET firstName=?, lastName=?, birthdate=?, phone_number=?, gender=?, email=?, address=? WHERE user_id=?`,
       [firstName, lastName, birthdate, phone_number, gender, email, address, userId]
     );
     await pool.query(
@@ -147,7 +147,7 @@ router.post('/uploadResume',isLoggedIn, upload.single('resume'), async (req, res
     console.log("ResumePath", filePath)
     const userId = req.user.user_id;
     // บันทึกชื่อไฟล์เข้าฐานข้อมูล และ ใช้ฟังก์ชัน UUID() เพื่อสร้างชื่อไฟล์ที่ไม่ซ้ำกัน
-    await pool.query('UPDATE applicants SET resume =(?) WHERE user_id = ?', [filePath, userId]);
+    await pool.query('UPDATE students SET resume =(?) WHERE user_id = ?', [filePath, userId]);
     console.log("File uploaded successfully")
     return res.json({ message: 'File uploaded successfully', filePath:filePath });
   } catch (err) {

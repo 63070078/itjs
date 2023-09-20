@@ -10,7 +10,7 @@ router.post('/sendApplicationJob',isLoggedIn, async (req, res) => {
     try {
       const { job_id, user_id } = req.body;
       const [result] = await pool.query(
-        'INSERT INTO job_applications (job_id, applicant_id, status) VALUES (?, ?, ?)',
+        'INSERT INTO student_jobs (job_id, student_job_id, status) VALUES (?, ?, ?)',
         [job_id, user_id, 'pending']
       );
   
@@ -25,15 +25,15 @@ router.get('/getJobApplications', isLoggedIn, async (req, res) => {
     const userId = req.user.user_id;
     try {
         const [results] = await pool.query(`
-        SELECT ja.job_id, ja.applicant_id, ja.status, j.title, ja.application_id
-        FROM job_applications ja
+        SELECT ja.job_id, ja.student_id, ja.status, j.title, ja.student_job_id
+        FROM student_jobs ja
         INNER JOIN jobs j ON ja.job_id = j.job_id
-        WHERE ja.applicant_id = ?
+        WHERE ja.student_id = ?
       `, [userId]);
       const jobApplications = results.map((row) => {
         return {
-          application_id: row.application_id,
-          applicant_id: row.applicant_id,
+          student_job_id: row.student_job_id,
+          student_id: row.student_id,
           status: row.status,
           job: {
             job_id: row.job_id,
@@ -51,7 +51,7 @@ router.put('/cancelJob/:applicationId', isLoggedIn, async (req, res) => {
     const { status } = req.body;
     const applicationId = req.params.applicationId;
     try {
-      await pool.query('UPDATE job_applications SET status = ? WHERE application_id = ?', [status, applicationId]);
+      await pool.query('UPDATE student_jobs SET status = ? WHERE student_job_id = ?', [status, applicationId]);
       res.json({ message: 'Cancel job application successful' });
     } catch (error) {
       console.error(error);
@@ -64,13 +64,13 @@ router.get('/getApplications', isLoggedIn, async (req, res) => {
     try {
       const [results] = await pool.query(`
         SELECT ja.*, j.title as job_title
-        FROM job_applications ja
+        FROM student_jobs ja
         INNER JOIN jobs j ON ja.job_id = j.job_id
         WHERE j.user_id = ?
       `, [recruiterId]);
       const applications = results.map((row) => {
         return {
-          id: row.application_id,
+          id: row.student_job_id,
           applicantName: row.applicant_name,
           position: row.job_title,
           applicationDate: row.application_date,
@@ -88,7 +88,7 @@ router.get('/getApplications', isLoggedIn, async (req, res) => {
     const applicationId = req.params.applicationId;
     const { status } = req.body;
     try {
-      await pool.query('UPDATE job_applications SET status = ? WHERE application_id = ?', [status, applicationId]);
+      await pool.query('UPDATE student_jobs SET status = ? WHERE student_job_id = ?', [status, applicationId]);
       res.json({ message: 'Update application status successful' });
     } catch (error) {
       console.error(error);
@@ -99,8 +99,8 @@ router.get('/getApplications', isLoggedIn, async (req, res) => {
   router.get('/getApplicationDetails/:applicationId', async (req, res) => {
     try {
       const applicationId = req.params.applicationId;
-      const [applicationResult] = await pool.query('SELECT applicant_id FROM job_applications WHERE application_id = ?', [applicationId]);
-      const userId = applicationResult[0].applicant_id;
+      const [applicationResult] = await pool.query('SELECT student_id FROM student_jobs WHERE student_job_id = ?', [applicationId]);
+      const userId = applicationResult[0].student_id;
       const [applicantResult] = await pool.query('SELECT * FROM applicants WHERE user_id = ?', [userId]);
       res.json(applicantResult);
     } catch (error) {

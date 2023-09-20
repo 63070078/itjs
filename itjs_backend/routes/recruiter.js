@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 router.get('/getData', isLoggedIn, async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM recruiters WHERE user_id=?', [req.user.user_id]);
+    const [rows] = await pool.query('SELECT * FROM companies WHERE user_id=?', [req.user.user_id]);
     console.log("applicant GetData", req.user.user_id)
     res.status(200).json(rows);
   } catch (error) {
@@ -17,10 +17,10 @@ router.get('/getData', isLoggedIn, async (req, res) => {
   }
 });
 
-// GET all recruiters
+// GET all companies
 router.get("/getRecruiter", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM recruiters");
+    const [rows] = await pool.query("SELECT * FROM companies");
     res.status(200).json(rows);
   } catch (error) {
     console.error(error);
@@ -126,12 +126,12 @@ router.post("/editProfile", isLoggedIn, upload.single('profile_image'), async (r
     const companyId = req.user.user_id;
     const filePath = req.file.path;
     const status = 'open'
-    // ตรวจสอบว่าอีเมลใหม่ซ้ำกับที่มีอยู่ในตาราง recruiters หรือไม่
-    const [existingRecruiter] = await pool.query('SELECT * FROM recruiters WHERE email = ?', [email]);
+    // ตรวจสอบว่าอีเมลใหม่ซ้ำกับที่มีอยู่ในตาราง companies หรือไม่
+    const [existingRecruiter] = await pool.query('SELECT * FROM companies WHERE email = ?', [email]);
     if (existingRecruiter.length > 0 && existingRecruiter[0].user_id !== companyId) {
       return res.status(400).json({ message: 'Email already exists' });
     }
-      await pool.query('UPDATE recruiters SET company_name = ?, email = ?, description = ?, profile_image = ?, company_video = ?, status = ? WHERE user_id = ?',[company_name, email, description, filePath, company_video, status, companyId]);
+      await pool.query('UPDATE companies SET company_name = ?, email = ?, description = ?, profile_image = ?, company_video = ?, status = ? WHERE user_id = ?',[company_name, email, description, filePath, company_video, status, companyId]);
       await pool.query('UPDATE users SET status = ? WHERE user_id = ?', [status, companyId])
       console.log("Recruiter edit Successfuly")
 
@@ -271,7 +271,7 @@ router.put('/updateJob/:jobId', isLoggedIn, async (req, res) => {
 router.get('/getRecruiterDetails/:companyId', async (req, res) => {
   const companyId = req.params.companyId;
   try {
-    const [results] = await pool.query('SELECT * FROM recruiters WHERE user_id = ?', [companyId]);
+    const [results] = await pool.query('SELECT * FROM companies WHERE user_id = ?', [companyId]);
     if (results.length > 0) {
       const recruiter = results[0];
       res.json(recruiter);
