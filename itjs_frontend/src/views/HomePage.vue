@@ -1,60 +1,67 @@
 <template>
   <div class="main-content">
-      <div class="section-light about-me" id="about-me">
-        <div class="container">
-          <div class="column is-12 about-me">
-            <h1 class="title has-text-centered section-title">JOBLINK WEBSITE</h1>
+   
+      <div class="container">
+       
+        <div class="columns is-multiline">
+          
+          <img id="suggest"
+              class="is-rounded"
+              src="https://picsum.photos/id/366/600/375"
+              alt=""
+            />
+          <div class="companys_content">
+          
+            <div class="field has-addons">
+            <p class="control">
+              <input class="input" type="text" placeholder="ชื่อตำแหน่งงาน หรือชื่อบริษัท">
+            </p>
+            <p class="control">
+              <span class="select">
+                <select>
+                  <option>ประเภทงานทั้งหมด</option>
+                  <option>UX/UI</option>
+                  <option>design</option>
+                </select>
+              </span>
+            </p>
+            <p class="control">
+              <a class="button is-info">ค้นหา</a>
+            </p>
           </div>
-          <div class="columns is-multiline">
-            <div
-              class="column is-6 has-vertically-aligned-content"
-              data-aos="fade-right"
-            >
-              <p class="is-larger">
-                &emsp;&emsp;<strong
-                  >Join the JOBLINK community and let your career soar to new heights. Navigate your career path with confidence and JOBLINK by your side.</strong
-                >
-              </p>
-              <br />
-              <p>
-                เนื่องจากในปัจจุบันในช่วงที่นักศึกษาชั้นปีที่ 3 ขึ้นปี 4  จะต้องไปหาที่ฝึกงานหรือไปทำสหกิจศึกษาตอนปี 4 การที่จะหาบริษัทจากประกาศรับสมัครตามเว็บต่างๆ เป็นไปได้ค่อนข้างลำบากเนื่องจากแต่ละบริษัทประกาศงานไว้ในที่ที่แตกต่างกันออกไป  เช่น Facebook LinkedIn เว็บของบริษัท เป็นต้น  ทำให้ผู้ที่ต้องการยื่นสมัครต้องใช้เวลาในการค้นหานานและอาจทำผู้สมัครต้องพลาดโอกาสไป นอกจากนี้ในการยื่นสมัครแต่ละครั้งก็ต้องกรอกข้อมูลและอัปโหลดไฟล์ข้อมูลเดิม ๆ ใหม่ทุกครั้งทำให้ผู้สมัครต้องเสียเวลาในการกรอกโดยไม่จำเป็น
-              </p>
-              <br />
-            </div>
-            <div class="column is-6 right-image " data-aos="fade-left">
-              <img
-                class="is-rounded"
-                src="https://picsum.photos/id/366/600/375"
-                alt=""
-              />
-            </div>
-
-            <div class="companys_content ">
-              <div class="columns is-multiline">
-                  <div class="companycard" v-for="company in companies" :key="company.job_id">
-                      <!-- <button class="button" @click="deleteItem(index)">Del</button> -->
-                      <div class="card" @click="goToCompanyDetails(company.user_id)">
-                        <div>
-                              <div class="card-image">
-                                  <figure class="image">
-                                      <img :src="imagePath(company.profile_image)" alt="Placeholder image" style="height: 150px;">
-                                  </figure>
-                              </div>
-                              <div class="card-content">
-                                      <p class="title has-text-centered is-size-6 content">{{ company.company_name }}</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+          
+<div class="columns" >
+  <div class="column" v-for="company in companies"
+                :key="company.job_id">
+    <div class="card"  @click="goToCompanyDetails(company.user_id)">
+      <div class="card-image">
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img :src="imagePath(company.profile_image)" alt="Placeholder image">
+            </figure>
           </div>
+          <div class="media-content">
+            <p>
+          <strong>{{ company.company_name }}</strong> <small>@johnsmith</small> <small>31m</small>
+        </p>
+        </div>
+        </div>
+         <span class="tag is-normal">Normal</span>
+      </div>
+    </div>
+  </div>
+</div>
           </div>
         </div>
       </div>
-      <footer class="footer">
+ 
+    <footer class="footer">
       <div class="content has-text-centered">
         <p>
-          &copy; 2023 JOBLINK. All rights reserved.
+          &copy;
         </p>
       </div>
     </footer>
@@ -100,16 +107,33 @@ export default {
 </script>
 
 <style scoped>
+.maincontent{
+  background-color: #F5F8FA;
+}
 .container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   padding: 2rem;
+  background-color: #F5F8FA;
 }
 
-.companycard{
+.companycard {
   margin: 1rem;
 }
 
+#suggest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1000px; /* ปรับขนาดกว้างตามที่คุณต้องการ */
+  height: 300px; /* ให้ความสูงปรับตามเนื้อหาภายใน */
+  margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างของ #suggest */
+ 
+}
 
+.card-container {
+  width: 60%;
+  margin: auto;
+}
 
 </style>

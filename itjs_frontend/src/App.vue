@@ -4,7 +4,7 @@
       <div class="navbar-brand">
         <a class="navbar-item" href="/" >
           <img
-            src="./assets/images/logo.png"
+            src=""
             width="112"
             height="28"
           />
