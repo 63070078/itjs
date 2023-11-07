@@ -36,7 +36,7 @@
                 <font-awesome-icon icon="exclamation" style="color: red" v-if="recruiter.status === 'close'" />ข้อมูลบริษัท
               </router-link>
               <router-link class="navbar-item " to="/applicantList" v-if="user.role === 'recruiter'">
-                คนที่มายื่นสมัคร
+                คนที่มายื่นสมัคร xxxxxx
               </router-link>
               <!-- ของคนหางาน -->
               <router-link class="navbar-item " to="/applicantProfile" v-if="user.role === 'applicant' ">
