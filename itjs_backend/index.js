@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
+require("dotenv").config(); //ใข้งาน .env
 const path = require('path');
 const router = express.Router();
 app.use(cors());
