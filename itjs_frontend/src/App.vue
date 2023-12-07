@@ -2,11 +2,12 @@
   <div id="app">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="/" >
+        <a class="navbar-item-logo" href="/">
           <img
-            src=""
-            width="112"
-            height="28"
+            src="./assets/images/logo.png"
+            width="200px" 
+            height="auto"
+            alt="Logo"
           />
         </a>
         <a
@@ -21,6 +22,7 @@
           <span aria-hidden="true"></span>
         </a>
       </div>
+
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-end">
           <div class="navbar-item">
@@ -31,13 +33,15 @@
               <router-link class="button is-dark" to="/signin" v-if="!user">
                 <strong>Sign In</strong>
               </router-link>
-               <!-- ของบริษัท -->
-               <router-link class="navbar-item " to="/recruiterProfile" v-if="user.role === 'recruiter'">
+
+              <!-- ของบริษัท -->
+              <router-link class="navbar-item " to="/recruiterProfile" v-if="user.role === 'recruiter'">
                 <font-awesome-icon icon="exclamation" style="color: red" v-if="recruiter.status === 'close'" />ข้อมูลบริษัท
               </router-link>
               <router-link class="navbar-item " to="/applicantList" v-if="user.role === 'recruiter'">
                 คนที่มายื่นสมัคร 
               </router-link>
+
               <!-- ของคนหางาน -->
               <router-link class="navbar-item " to="/applicantProfile" v-if="user.role === 'applicant' ">
                 <font-awesome-icon icon="exclamation" style="color: red" v-if="applicant.status === 'close'" />ประวัติส่วนตัว
@@ -45,6 +49,7 @@
               <router-link class="navbar-item " to="/MyJobs" v-if="user.role === 'applicant'">
                 งานของฉัน
               </router-link>
+
               <button class="button is-danger" @click="logout()" v-if="user">
                 Logout
               </button>
@@ -58,7 +63,6 @@
       @auth-change="getUser"
       :user="user"
     />
-
   </div>
 </template>
 <script>
@@ -108,8 +112,23 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+<style scoped>
+.navbar {
+  background-color: #b9b9b9;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
+
+.navbar-item-logo {
+ 
+  padding: 10px;
+}
+
+.navbar-burger {
+  margin-top: 20px; 
+  
+}
+
 </style>

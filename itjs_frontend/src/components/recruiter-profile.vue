@@ -5,6 +5,7 @@
         <div class="field">
           <p class="control">
             <img :src="imagePath(profile_image)" alt="Profile Image" class="image-preview profile_image" v-if="profile_image && !modify_profile">
+            <img :src="imagePath(profile_image)" alt="Profile Image" class="image-preview profile_image" v-if="profile_image && modify_profile && !profile_image_preview">
             <img :src="profile_image_preview" alt="Profile Image" class="image-preview profile_image" v-if="profile_image_preview && modify_profile">
           </p>
         </div>
