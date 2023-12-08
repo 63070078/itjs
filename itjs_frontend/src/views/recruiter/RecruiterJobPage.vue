@@ -25,6 +25,7 @@
             <div class="p-6 card">
         <h1 class="title">งานที่ประกาศ</h1><div>
     <button class="button is-primary add" @click="addJobs()">เพิ่มงาน</button>
+    <button class="button is-primary add" @click="addJobsByUpload()">อัพโหลด</button>
     <noInformationVue v-if="!(jobs.length > 0)"></noInformationVue>
         <div class="detail" v-for="job in jobs" :key="job.job_id">
             
@@ -110,6 +111,9 @@ export default {
     },
     addJobs() {
       this.$router.push("/recruiterAddJob");
+    },
+    addJobsByUpload() {
+      this.$router.push("/recruiterAddJobByUpload");
     },
     confirmDeleteJob(job_id) {
       Swal.fire({

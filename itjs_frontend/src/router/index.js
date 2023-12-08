@@ -60,6 +60,12 @@ const routes = [
     component: () => import('../views/recruiter/RcruiterAddJob.vue')
   },
   {
+    path: '/recruiterAddJobByUpload',
+    name: 'recruiterAddJobByUpload',
+    meta: { login: true },
+    component: () => import('../views/recruiter/RcruiterAddJobByUpload.vue')
+  },
+  {
     path: '/edit-job/:jobId',
     name: 'RecruiterJobEdit',
     meta: { login: true },
