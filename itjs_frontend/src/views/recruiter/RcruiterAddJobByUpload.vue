@@ -3,31 +3,26 @@
     <h1 class="title">อัพโหลดไฟล์</h1>
     <div class="field">
       <div class="file is-medium is-boxed has-name">
-  <label class="file-label">
-    <input class="file-input" type="file" name="resume">
-    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fas fa-upload"></i>
-      </span>
-      <span class="file-label">
-        Upload File
-      </span>
-    </span>
-    <span class="file-name">
-      
-    </span>
-  </label>
-</div>
-<div class="field">
-      <label class="label">เว็บไซต์ของบริษัท</label>
-      <div class="control">
-        <textarea class="textarea"></textarea>
+        <label class="file-label">
+          <input class="file-input" type="file" name="resume" />
+          <span class="file-cta">
+            <span class="file-icon">
+              <i class="fas fa-upload"></i>
+            </span>
+            <span class="file-label"> Upload File </span>
+          </span>
+          <span class="file-name"> </span>
+        </label>
       </div>
-  
-    </div>
+      <div class="field">
+        <label class="label">เว็บไซต์ของบริษัท</label>
+        <div class="control">
+          <textarea class="textarea"></textarea>
+        </div>
+      </div>
       <label class="label">ชื่องาน</label>
       <div class="control">
-        <input class="input" type="text"/>
+        <input class="input" type="text" />
       </div>
       <p v-if="$v.title.$error" class="help is-danger">โปรดกรอกชื่องาน</p>
     </div>
@@ -48,7 +43,7 @@
       <div class="control">
         <textarea class="textarea"></textarea>
       </div>
-    </div>    
+    </div>
     <div class="field is-grouped">
       <div class="control">
         <button class="button is-primary">บันทึก</button>
@@ -61,23 +56,21 @@
 </template>
 
 <script>
-import { required, minValue } from 'vuelidate/lib/validators';
+import { required, minValue } from "vuelidate/lib/validators";
 //import axios from 'axios';
 //import Swal from "sweetalert2";
 export default {
   data() {
     return {
-      title: '',
-      status: 'open',
-      detail: '',
-      companyURL:'',
-
+      title: "",
+      status: "open",
+      detail: "",
+      companyURL: "",
     };
   },
   methods: {
-    
     cancel() {
-      this.$router.push('/recruiterJob');
+      this.$router.push("/recruiterJob");
     },
   },
   validations: {
@@ -102,7 +95,6 @@ export default {
       minValue: minValue(0),
     },
   },
-  
 };
 </script>
 
