@@ -75,6 +75,7 @@ export default {
   data() {
     return {
       jobs: [],
+      company:[],
       addJob: false,
       select_option : 'myjob',
     };

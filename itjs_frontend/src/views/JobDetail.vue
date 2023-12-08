@@ -8,7 +8,8 @@
             <img src="http://animal.discovery.com/mammals/cheetah/pictures/cheetah-picture.jpg" alt="Img company" />
           </div>
           <div class="column">
-            <h2 class="mb-4">Name of Company</h2>
+            <h2 class="mb-4">Name of Company{{ company.company_name }}</h2>
+            
           </div>
         </div>
       </div>
@@ -89,7 +90,7 @@ export default {
   },
   mounted() {
     const jobId = this.$route.params.jobId;
-    const companyId = this.$route.params.companyId;
+    const companyId = 59;
     this.getCompanyJobs(jobId);
     this.getCompanyDetails(companyId);
     this.getUser();
