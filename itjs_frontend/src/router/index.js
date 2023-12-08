@@ -4,21 +4,23 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
+
   {
     path: '/',
     name: 'HomePage',
-  
+    meta: { title: 'หน้าแรก' },
     component: () => import('../views/HomePage.vue') // set home as path '/'
   },
   {
     path: '/signup',
     name: 'signUp',
+    meta: {title: 'สมัครสมาชิก'},
     component: () => import('../views/SignUp.vue')
   },
   {
     path: '/signin',
     name: 'signIn',
-    
+    meta: {title: 'เข้าสู่ระบบ'},
     component: () => import('../views/SignIn.vue')
   },
   {
@@ -36,19 +38,19 @@ const routes = [
   {
     path: '/MyJobs',
     name: 'MyJobs',
-    meta: { login: true },
+    meta: { login: true ,title:'งานที่สมัคร'},
     component: () => import('../views/applicant/MyJobsPage.vue')
   },
   {
     path: '/recruiterProfile',
     name: 'recruiterProfile',
-    meta: { login: true },
+    meta: { login: true , title:'ข้อมูลบริษัท'},
     component: () => import('../views/recruiter/RecruiterProfilePage.vue')
   },
   {
     path: '/recruiterJob',
     name: 'recruiterJob',
-    meta: { login: true },
+    meta: { login: true , title:'งานที่ประกาศ'},
     component: () => import('../views/recruiter/RecruiterJobPage.vue')
   },
   {
@@ -56,6 +58,12 @@ const routes = [
     name: 'recruiterAddJob',
     meta: { login: true },
     component: () => import('../views/recruiter/RcruiterAddJob.vue')
+  },
+  {
+    path: '/recruiterAddJobByUpload',
+    name: 'recruiterAddJobByUpload',
+    meta: { login: true },
+    component: () => import('../views/recruiter/RcruiterAddJobByUpload.vue')
   },
   {
     path: '/edit-job/:jobId',
@@ -66,19 +74,19 @@ const routes = [
   {
     path: '/company/:companyId',
     name: 'CompanyDetails',
-    
+    meta: {title: 'บริษัท'},
     component: () => import('../views/CompanyDetails.vue')
   },
   {
     path: '/job/:jobId',
     name: 'JobDetails',
-    meta: { login: true },
+    meta: { login: true, title:'ชื่องาน'},
     component: () => import('../views/JobDetail.vue')
   },
   {
     path: '/applicantList',
     name: 'applicantList',
-    meta: { login: true },
+    meta: { login: true, title:'คนที่มายื่นสมัคร'},
     component: () => import('../views/recruiter/Applicant-list.vue')
   },
   {
@@ -106,6 +114,11 @@ router.beforeEach((to, from, next) => {
   if (to.meta.guess && isLoggedIn) {
     alert("You've already logged in");
     next({ path: "/" });
+  }
+
+  // ถ้ามีค่า meta.title ในเส้นทาง (route) กำหนดค่าให้กับ title ของหน้าเว็บไซต์
+  if (to.meta.title) {
+    document.title = to.meta.title + " | ITJS";
   }
 
   next();
